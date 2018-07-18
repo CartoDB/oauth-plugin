@@ -28,7 +28,7 @@ module OAuth
             # Store this temporarily in client_application object for use in request token generation 
             client_application.token_callback_url=request_proxy.oauth_callback if request_proxy.oauth_callback
             
-            oauth_token = client_application.tokens.first(:conditions=>{:token => request_proxy.token})
+	    oauth_token = client_application.tokens.where(token: request_proxy.token).first
             if oauth_token.respond_to?(:provided_oauth_verifier=)
               oauth_token.provided_oauth_verifier=request_proxy.oauth_verifier 
             end
